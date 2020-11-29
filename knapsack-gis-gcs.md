@@ -230,13 +230,21 @@ for i in range(1, n + 1):
 def calc(i, j):
     if dp[i][j] == -1:
         dp[i][j] = calc(i - 1, j)
-        if a[i] <= j:
-            dp[i][j] = max(dp[i][j], calc(i - 1, j - a[i]) + c[i])
+        if a[i-1] <= j:
+            dp[i][j] = max(dp[i][j], calc(i - 1, j - a[i-1]) + c[i-1])
     return dp[i][j]         
 
-answer = 0
-for j in range(W + 1):
-    answer = max(answer, calc(n, j))
+# W = 10
+# n = 4
+# a = [6, 3, 4, 2]
+# c = [30, 14, 16, 9]
+# dp = [[-1]*(W+1) for _ in range(n+1)]
+# for j in range(W+1):
+#     dp[0][j] = 0
+# for i in range(n+1):
+#     dp[i][0] = 0
+
+answer = calc(n, W)
 ```
 
 Время работы так же составит $O(nW)$, так как каждое значение мы считаем только один раз, но истинное время работы будет в несколько раз больше, потому что константа на вызовы функции значительно выше чем на простой цикл. 
